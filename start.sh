@@ -20,9 +20,9 @@ sleep 5
 
 echo "Iniciando Jellyfin..."
 if command -v jellyfin >/dev/null 2>&1; then
-  jellyfin &
+  jellyfin --nowebclient &
 elif [ -f /usr/lib/jellyfin/jellyfin ]; then
-  /usr/lib/jellyfin/jellyfin &
+  /usr/lib/jellyfin/jellyfin --nowebclient &
 else
   echo "Error: Jellyfin no encontrado."
   kill $RCLONE_PID
