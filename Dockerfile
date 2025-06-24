@@ -15,10 +15,9 @@ RUN apt-get update && apt-get install -y \
 RUN wget -O - https://repo.jellyfin.org/jellyfin_team.gpg.key | apt-key add - \
     && echo "deb [arch=amd64] https://repo.jellyfin.org/ubuntu jammy main" > /etc/apt/sources.list.d/jellyfin.list
 
-# Actualizar repositorios e instalar Jellyfin con su interfaz web
+# Actualizar repositorios e instalar solo Jellyfin (sin web)
 RUN apt-get update && apt-get install -y \
     jellyfin \
-    jellyfin-web \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /mnt/drive
