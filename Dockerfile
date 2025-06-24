@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
 
+# Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
@@ -15,13 +16,15 @@ RUN wget -O - https://repo.jellyfin.org/jellyfin_team.gpg.key | apt-key add -
 RUN echo "deb [arch=amd64] https://repo.jellyfin.org/ubuntu jammy main" > /etc/apt/sources.list.d/jellyfin.list
 RUN apt-get update && apt-get install -y jellyfin
 
-# Crear directorio para montar Google Drive
+# Crear carpeta para montar (aunque no montamos con rclone mount)
 RUN mkdir -p /mnt/drive
 
-# Copiar script start.sh
+# Copiar el script de inicio
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-EXPOSE 8096
+# Exponer puertos para Jellyfin y rclone serve http
+EXPOSE 8096 8080
 
+# Comando para iniciar el contenedor
 CMD ["/start.sh"]
